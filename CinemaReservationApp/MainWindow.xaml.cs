@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CinemaReservationApp.Classes;
 
 namespace CinemaReservationApp
 {
@@ -20,9 +21,11 @@ namespace CinemaReservationApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Cinema _cinema;
         public MainWindow()
         {
             InitializeComponent();
+            _cinema = new Cinema(10, 10, MainGrid);
         }
     }
 }
