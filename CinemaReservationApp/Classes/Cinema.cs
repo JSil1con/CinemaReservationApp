@@ -29,22 +29,26 @@ namespace CinemaReservationApp.Classes
 
             CountOfSeats = rows * columns;
 
+            int seatCounter = 1;
+
             for (int j = 0; j < rows; j++)
             {
                 for (int k = 0; k < columns; k++)
                 {
-                    Button tempButton = CreateSeat();
+                    Button tempButton = CreateSeat(seatCounter);
                     Grid.SetRow(tempButton, j);
                     Grid.SetColumn(tempButton, k);
                     grid.Children.Add(tempButton);
+                    seatCounter++;
                 }
             }
 
         }
 
-        private Button CreateSeat()
+        private Button CreateSeat(int id)
         {
             Button button = new Button();
+            button.Content = id;
             button.Background = Brushes.Red;
             return button;
         }
