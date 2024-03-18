@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -50,7 +51,14 @@ namespace CinemaReservationApp.Classes
             Button button = new Button();
             button.Content = id;
             button.Background = Brushes.Red;
+            button.Click += SeatClicked;
             return button;
+        }
+
+        private void SeatClicked(object sender, RoutedEventArgs e)
+        {
+            Button clickedButton = (e.Source as Button);
+            clickedButton.Background = Brushes.LightGreen;
         }
     }
 }
