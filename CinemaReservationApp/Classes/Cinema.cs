@@ -12,7 +12,7 @@ namespace CinemaReservationApp.Classes
 {
     internal class Cinema
     {
-        public Dictionary<RowDefinition, List<ColumnDefinition>> Seats { get; } = new Dictionary<RowDefinition, List<ColumnDefinition>>();
+        private List<Seat> _seats = new List<Seat>();
         public int CountOfSeats;
         public Cinema(int rows, int columns, Grid grid)
         {
@@ -36,6 +36,7 @@ namespace CinemaReservationApp.Classes
             {
                 for (int k = 0; k < columns; k++)
                 {
+                    _seats.Add(new Seat(seatCounter));
                     Button tempButton = CreateSeat(seatCounter);
                     Grid.SetRow(tempButton, j);
                     Grid.SetColumn(tempButton, k);
