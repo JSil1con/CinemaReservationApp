@@ -12,19 +12,29 @@ namespace CinemaReservationApp.Classes
     internal class Cinema
     {
         public Dictionary<RowDefinition, List<ColumnDefinition>> Seats { get; } = new Dictionary<RowDefinition, List<ColumnDefinition>>();
-        public Cinema(int rows, int columns)
+        public int CountOfSeats;
+        public Cinema(int rows, int columns, Grid grid)
         {
             for (int i = 0; i < rows; i++)
             {
                 RowDefinition tempRow = new RowDefinition();
-                List<ColumnDefinition> tempList = new List<ColumnDefinition>();
-                for (int j = 0; j < columns; j++)
-                {
-                    ColumnDefinition tempColumnDefinition = new ColumnDefinition();
-                    tempList.Add(tempColumnDefinition);
-                }
-                Seats.Add(tempRow, tempList);
+                grid.RowDefinitions.Add(tempRow);
             }
+
+            for (int i = 0; i < columns; i++)
+            {
+                ColumnDefinition tempColumn = new ColumnDefinition();
+                grid.ColumnDefinitions.Add(tempColumn);
+            }
+
+            CountOfSeats = rows * columns;
+        }
+
+        private Button CreateSeat()
+        {
+            Button button = new Button();
+            button.Background = Brushes.Red;
+            return button;
         }
     }
 }
