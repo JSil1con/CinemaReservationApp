@@ -12,8 +12,9 @@ namespace CinemaReservationApp.Classes
 {
     internal class Cinema
     {
-        private List<Seat> _seats = new List<Seat>();
-        public int CountOfSeats;
+        private Dictionary<int, Seat> _seats = new Dictionary<int, Seat>();
+        private List<int> _selectedSeats = new List<int>();
+        public int CountOfSeats { get; }
         public Cinema(int rows, int columns, Grid grid)
         {
             for (int i = 0; i < rows; i++)
@@ -36,7 +37,7 @@ namespace CinemaReservationApp.Classes
             {
                 for (int k = 0; k < columns; k++)
                 {
-                    _seats.Add(new Seat(seatCounter));
+                    _seats.Add(seatCounter, new Seat());
                     Button tempButton = CreateSeat(seatCounter);
                     Grid.SetRow(tempButton, j);
                     Grid.SetColumn(tempButton, k);
@@ -59,7 +60,17 @@ namespace CinemaReservationApp.Classes
         private void SeatClicked(object sender, RoutedEventArgs e)
         {
             Button clickedButton = (e.Source as Button);
-            clickedButton.Background = Brushes.LightGreen;
+            int idSeat = Int32.Parse(clickedButton.Content.ToString());
+            if (!_selectedSeats.Contains(idSeat))
+            {
+                clickedButton.Background = Brushes.LightGreen;
+                _selectedSeats.Add(idSeat);
+            }
+            else
+            {
+                clickedButton.Background = Brushes.Red;
+                _selectedSeats.Remove(idSeat);
+            }
         }
     }
 }

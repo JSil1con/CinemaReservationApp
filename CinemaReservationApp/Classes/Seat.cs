@@ -9,7 +9,6 @@ namespace CinemaReservationApp.Classes
 {
     internal class Seat
     {
-        public int Id { get; }
         public bool isEnabled { get; set; }
         private string _status;
         public string Status
@@ -32,9 +31,8 @@ namespace CinemaReservationApp.Classes
             }
         }
 
-        public Seat(int id)
+        public Seat()
         {
-            Id = id;
             Status = "Free";
             isEnabled = true;
         }
