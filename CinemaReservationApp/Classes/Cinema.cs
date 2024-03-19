@@ -29,6 +29,24 @@ namespace CinemaReservationApp.Classes
                 grid.ColumnDefinitions.Add(tempColumn);
             }
 
+            grid.RowDefinitions.Add(new RowDefinition());
+            Button confirmButton = new Button();
+            confirmButton.Content = "Confirm selection";
+            Grid.SetRow(confirmButton, rows);
+
+            if (columns % 2 == 0)
+            {
+                Grid.SetColumn(confirmButton, columns / 2 - 1);
+                Grid.SetColumnSpan(confirmButton, 2);
+            }
+            else
+            {
+                Grid.SetColumn(confirmButton, columns / 2);
+            }
+
+            grid.Children.Add(confirmButton);
+
+
             CountOfSeats = rows * columns;
 
             int seatCounter = 1;

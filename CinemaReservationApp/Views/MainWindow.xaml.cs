@@ -25,7 +25,7 @@ namespace CinemaReservationApp.Views
         public MainWindow()
         {
             InitializeComponent();
-            _cinema = new Cinema(10, 10, MainGrid);
+            _cinema = new Cinema(10, 9, MainGrid);
         }
     }
 }
