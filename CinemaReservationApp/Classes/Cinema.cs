@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CinemaReservationApp.Views;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -32,6 +33,7 @@ namespace CinemaReservationApp.Classes
             grid.RowDefinitions.Add(new RowDefinition());
             Button confirmButton = new Button();
             confirmButton.Content = "Confirm selection";
+            confirmButton.Click += ConfirmSeats;
             Grid.SetRow(confirmButton, rows);
 
             if (columns % 2 == 0)
@@ -73,6 +75,12 @@ namespace CinemaReservationApp.Classes
             button.Background = Brushes.Red;
             button.Click += SeatClicked;
             return button;
+        }
+
+        private void ConfirmSeats(object sender, RoutedEventArgs e)
+        {
+            SeatsConfirmation seatConfirmationWindow = new SeatsConfirmation();
+            seatConfirmationWindow.Show();
         }
 
         private void SeatClicked(object sender, RoutedEventArgs e)
