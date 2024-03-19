@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CinemaReservationApp.Classes;
 
-namespace CinemaReservationApp
+namespace CinemaReservationApp.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
