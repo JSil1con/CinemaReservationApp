@@ -7,6 +7,38 @@
         mc:Ignorable="d"
         Title="SeatsConfirmation" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+            <RadioButton 
+                x:Name="radioButtonReservation" 
+                Checked="checkedRadioButton"
+                Content="Reservation" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>
+            <RadioButton x:Name="radioButtonSold" 
+                Checked="checkedRadioButton"
+                Content="Sold" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>
+            <RadioButton 
+                x:Name="radioButtonUnavailable" 
+                Checked="checkedRadioButton"
+                Content="Unavailable" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>
+            <Button
+                x:Name="buttonSeatsConfirmation"
+                Content="Confirm"
+                HorizontalAlignment="Center"
+                Click="buttonSeatConfirmation"
+                >
+                
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>

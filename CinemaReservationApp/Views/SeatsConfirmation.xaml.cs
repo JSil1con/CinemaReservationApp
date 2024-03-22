@@ -23,5 +23,15 @@ namespace CinemaReservationApp.Views
         {
             InitializeComponent();
         }
+
+        private void checkedRadioButton(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void buttonSeatConfirmation(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
