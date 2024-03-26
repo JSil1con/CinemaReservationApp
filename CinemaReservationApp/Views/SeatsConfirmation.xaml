@@ -14,9 +14,9 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <RadioButton Content="Reservation" Checked="RadioButtonChecked"></RadioButton>
-            <RadioButton Content="Sell" Checked="RadioButtonChecked"></RadioButton>
-            <RadioButton Content="Unavailable" Checked="RadioButtonChecked"></RadioButton>
+            <RadioButton x:Name="ReservationRadioButton" Content="Reservation"></RadioButton>
+            <RadioButton x:Name="SellRadioButton" Content="Sell"></RadioButton>
+            <RadioButton x:Name="UnavailableRadioButton" Content="Unavailable"></RadioButton>
             <Button Content="Confirm" Click="ConfirmButtonClicked"></Button>
         </StackPanel>
     </Grid>
