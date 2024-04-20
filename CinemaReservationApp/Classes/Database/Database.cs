@@ -39,5 +39,18 @@ namespace CinemaReservationApp.Classes.Database
 
             return movies;
         }
+
+        public async Task<List<CinemaModel>> GetCinemasAsync()
+        {
+            var cinemas = await _connection.Table<CinemaModel>().ToListAsync();
+
+            foreach (var cinema in cinemas)
+            {
+                cinema.Seats = await GetSeatsAsync(cinema.Id);
+                cinema.Movies = await GetMoviesAsync(cinema.Id);
+            }
+
+            return cinemas;
+        }
     }
 }
