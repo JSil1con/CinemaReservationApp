@@ -17,6 +17,17 @@ namespace CinemaReservationApp.Classes.Database
             _connection = new SQLiteAsyncConnection(path);
         }
 
+        public async Task<bool> UpdateAsync<T>(T input)
+        {
+            var result = await _connection.UpdateAsync(input);
+
+            if (result > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public async Task<List<SeatModel>> GetSeatsAsync(int cinemaId)
         {
             var seats = await _connection.Table<SeatModel>()
