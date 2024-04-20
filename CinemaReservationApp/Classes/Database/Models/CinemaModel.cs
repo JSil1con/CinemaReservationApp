@@ -12,5 +12,6 @@ namespace CinemaReservationApp.Classes.Database.Models
         public string Name { get; set; }
         public int Rows { get; set; }
         public int Columns { get; set; }
+        public List<SeatModel> Seats { get; set; }
     }
 }
