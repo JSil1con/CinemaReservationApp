@@ -19,6 +19,7 @@ namespace CinemaReservationApp.Views
     /// </summary>
     public partial class SeatsConfirmation : Window
     {
+        private string _selectedOption;
         public SeatsConfirmation()
         {
             InitializeComponent();
@@ -26,7 +27,8 @@ namespace CinemaReservationApp.Views
 
         private void checkedRadioButton(object sender, RoutedEventArgs e)
         {
-
+            RadioButton radioButton = (sender as RadioButton);
+            _selectedOption = radioButton.Content.ToString();
         }
 
         private void buttonSeatConfirmation(object sender, RoutedEventArgs e)
