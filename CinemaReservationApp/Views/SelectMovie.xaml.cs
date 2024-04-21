@@ -22,24 +22,43 @@ namespace CinemaReservationApp.Views
     public partial class SelectMovie : Window
     {
         private Database _database = new Database("database.db");
+        private string _cinemaName;
         public SelectMovie(string selectedCinema)
         {
             InitializeComponent();
             ViewMovies(selectedCinema);
+
+            _cinemaName = selectedCinema;
         }
 
         private async void ViewMovies(string selectedCinema)
         {
             List<MovieModel> movies = await _database.GetMoviesByCinemaName(selectedCinema);
 
-            foreach (MovieModel movie in movies)
+            MainListView.ItemsSource = movies;
+
+            MainListView.MouseDoubleClick += SelectedMovieClicked;
+        }
+
+        private void SelectedMovieClicked(object sender, RoutedEventArgs e)
+        {
+            MovieModel selectedMovie = (sender as ListView).SelectedItem as MovieModel;
+
+            // Ověření, zda byl vybrán film
+            if (selectedMovie != null)
             {
-                MainListView.Items.Add(new ListViewItem { Name = movie.Name, Date = movie.Date });
+                MainWindow mainwindow = new MainWindow(selectedMovie.Name, _cinemaName);
+                mainwindow.Show();
             }
+        }
+
+        private void MainListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 
-    public class ListViewItem
+    public class ListViewItemTemplate
     {
         public string Name { get; set; }
         public string Date { get; set; }

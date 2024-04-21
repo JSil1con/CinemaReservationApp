@@ -82,5 +82,15 @@ namespace CinemaReservationApp.Classes.Database
 
             return cinema;
         }
+
+        public async Task<CinemaModel> GetCinemaById(int cinemaId)
+        {
+
+            var cinema = await _connection.Table<CinemaModel>()
+            .Where(s => s.Id == cinemaId)
+            .FirstOrDefaultAsync();
+
+            return cinema;
+        }
     }
 }

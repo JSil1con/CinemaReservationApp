@@ -25,9 +25,20 @@ namespace CinemaReservationApp.Views
     {
         private Cinema _cinema;
         private Database _database = new Database("database.db");
-        public MainWindow(string cinemaName)
+        public MainWindow(string selectedMovie, string selectedCinema)
         {
             InitializeComponent();
+
+            ViewSeats(selectedMovie, selectedCinema);
+        }
+
+        private async void ViewSeats(string selectedMovie, string selectedCinema)
+        {
+            int cinemaId = await _database.GetCinemaIdByName(selectedCinema);
+
+            CinemaModel cinemaModel = await _database.GetCinemaById(cinemaId);
+
+            Cinema cinema = new Cinema(cinemaModel.Rows, cinemaModel.Columns, MainGrid);
         }
     }
 }

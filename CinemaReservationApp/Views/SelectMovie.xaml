@@ -7,11 +7,15 @@
         mc:Ignorable="d"
         Title="SelectMovie" Height="450" Width="600">
     <Grid>
-        <ListView x:Name="MainListView" HorizontalContentAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="114*"/>
+            <RowDefinition Height="103*"/>
+        </Grid.RowDefinitions>
+        <ListView Name="MainListView" SelectionChanged="MainListView_SelectionChanged" Grid.RowSpan="2">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Name" Width="300" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Date" Width="300" DisplayMemberBinding="{Binding Date}"/>
+                    <GridViewColumn Header="Název" DisplayMemberBinding="{Binding Name}" Width="300"/>
+                    <GridViewColumn Header="Datum" DisplayMemberBinding="{Binding Date}" Width="300"/>
                 </GridView>
             </ListView.View>
         </ListView>
