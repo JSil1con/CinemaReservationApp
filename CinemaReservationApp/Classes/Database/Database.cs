@@ -37,19 +37,19 @@ namespace CinemaReservationApp.Classes.Database
             return seats;
         }
 
-        //public async Task<List<MovieModel>> GetMoviesAsync(int cinemaId)
-        //{
-        //    var movies = await _connection.Table<MovieModel>()
-        //    .Where(m => m.CinemaId == cinemaId)
-        //    .ToListAsync();
+        public async Task<List<MovieModel>> GetMoviesAsync(int cinemaId)
+        {
+            var movies = await _connection.Table<MovieModel>()
+            .Where(m => m.CinemaId == cinemaId)
+            .ToListAsync();
 
-        //    foreach (var movie in movies)
-        //    {
-        //        movie.Cinema.Seats = await GetSeatsAsync(cinemaId);
-        //    }
+            foreach (var movie in movies)
+            {
+                movie.Cinema.Seats = await GetSeatsAsync(cinemaId);
+            }
 
-        //    return movies;
-        //}
+            return movies;
+        }
 
         public async Task<List<CinemaModel>> GetCinemasAsync()
         {
@@ -58,7 +58,7 @@ namespace CinemaReservationApp.Classes.Database
             foreach (var cinema in cinemas)
             {
                 cinema.Seats = await GetSeatsAsync(cinema.Id);
-                //cinema.Movies = await GetMoviesAsync(cinema.Id);
+                cinema.Movies = await GetMoviesAsync(cinema.Id);
             }
 
             return cinemas;
