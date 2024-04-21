@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CinemaReservationApp.Classes;
+using CinemaReservationApp.Classes.Database;
+using CinemaReservationApp.Classes.Database.Models;
 
 namespace CinemaReservationApp.Views
 {
@@ -22,10 +24,10 @@ namespace CinemaReservationApp.Views
     public partial class MainWindow : Window
     {
         private Cinema _cinema;
-        public MainWindow()
+        private Database _database = new Database("database.db");
+        public MainWindow(string cinemaName)
         {
             InitializeComponent();
-            _cinema = new Cinema(10, 9, MainGrid);
         }
     }
 }

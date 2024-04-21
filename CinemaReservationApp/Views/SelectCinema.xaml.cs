@@ -40,6 +40,7 @@ namespace CinemaReservationApp.Views
                 MainGrid.RowDefinitions.Add(new RowDefinition());
                 Button cinemaButton = new Button();
                 cinemaButton.Content = cinema.Name;
+                cinemaButton.Click += buttonClicked;
                 Grid.SetRow(cinemaButton, row);
                 Grid.SetColumn(cinemaButton, 0);
                 MainGrid.Children.Add(cinemaButton);
@@ -47,5 +48,14 @@ namespace CinemaReservationApp.Views
             }
         }
 
+
+        private void buttonClicked(object sender, RoutedEventArgs e)
+        {
+            Button clickedButton = (sender as Button);
+            string choosedCinema = (string)clickedButton.Content;
+
+            SelectMovie movieSelectWindow = new SelectMovie(choosedCinema);
+            movieSelectWindow.Show();
+        }
     }
 }
