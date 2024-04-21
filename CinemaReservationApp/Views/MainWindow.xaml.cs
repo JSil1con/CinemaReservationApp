@@ -24,7 +24,7 @@ namespace CinemaReservationApp.Views
     public partial class MainWindow : Window
     {
         private Cinema _cinema;
-        private Database _database = new Database("database.db");
+        private DatabaseController _database = new DatabaseController("database.db");
         public MainWindow(string selectedMovie, string selectedCinema)
         {
             InitializeComponent();
@@ -38,7 +38,7 @@ namespace CinemaReservationApp.Views
 
             CinemaModel cinemaModel = await _database.GetCinemaById(cinemaId);
 
-            Cinema cinema = new Cinema(cinemaModel.Rows, cinemaModel.Columns, MainGrid);
+            Cinema cinema = new Cinema(cinemaModel.Rows, cinemaModel.Columns, MainGrid, selectedCinema);
         }
     }
 }

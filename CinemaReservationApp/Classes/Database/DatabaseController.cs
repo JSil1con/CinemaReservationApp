@@ -6,13 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using SQLite;
 using System.Windows.Input;
+using SQLitePCL;
+using static SQLite.TableMapping;
 
 namespace CinemaReservationApp.Classes.Database
 {
-    internal class Database
+    internal class DatabaseController
     {
         private SQLiteAsyncConnection _connection;
-        public Database(string path)
+        public DatabaseController(string path)
         {
             _connection = new SQLiteAsyncConnection(path);
         }
@@ -31,8 +33,8 @@ namespace CinemaReservationApp.Classes.Database
         public async Task<List<SeatModel>> GetSeatsAsync(int cinemaId)
         {
             var seats = await _connection.Table<SeatModel>()
-            .Where(s => s.CinemaId == cinemaId)
-            .ToListAsync();
+                .Where(s => s.CinemaId == cinemaId)
+                .ToListAsync();
 
             return seats;
         }
@@ -40,8 +42,8 @@ namespace CinemaReservationApp.Classes.Database
         public async Task<List<MovieModel>> GetMoviesAsync(int cinemaId)
         {
             var movies = await _connection.Table<MovieModel>()
-            .Where(m => m.CinemaId == cinemaId)
-            .ToListAsync();
+                .Where(m => m.CinemaId == cinemaId)
+                .ToListAsync();
 
             foreach (var movie in movies)
             {
@@ -67,7 +69,7 @@ namespace CinemaReservationApp.Classes.Database
         public async Task<int> GetCinemaIdByName(string cinemaName)
         {
             var cinema = await _connection.Table<CinemaModel>()
-            .Where(s => s.Name == cinemaName).FirstOrDefaultAsync();
+                .Where(s => s.Name == cinemaName).FirstAsync();
 
             return cinema.Id;
         }
@@ -77,8 +79,8 @@ namespace CinemaReservationApp.Classes.Database
             int cinemaId = await GetCinemaIdByName(cinemaName);
 
             var cinema = await _connection.Table<MovieModel>()
-            .Where(s => s.CinemaId == cinemaId)
-            .ToListAsync();
+                .Where(s => s.CinemaId == cinemaId)
+                .ToListAsync();
 
             return cinema;
         }
@@ -87,10 +89,22 @@ namespace CinemaReservationApp.Classes.Database
         {
 
             var cinema = await _connection.Table<CinemaModel>()
-            .Where(s => s.Id == cinemaId)
-            .FirstOrDefaultAsync();
+                .Where(s => s.Id == cinemaId)
+                .FirstOrDefaultAsync();
 
             return cinema;
         }
+
+        public async Task<SeatModel> GetSeatByPosition(int row, int column, int cinemaId)
+        {
+            var seat = await _connection.Table<SeatModel>()
+                .Where(s => s.CinemaId == cinemaId)
+                .Where(s => s.Column == column)
+                .Where(s => s.Row == row)
+                .FirstOrDefaultAsync();
+
+            return seat;
+        }
+
     }
 }

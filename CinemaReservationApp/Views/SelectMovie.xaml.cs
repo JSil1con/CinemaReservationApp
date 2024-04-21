@@ -21,7 +21,7 @@ namespace CinemaReservationApp.Views
     /// </summary>
     public partial class SelectMovie : Window
     {
-        private Database _database = new Database("database.db");
+        private DatabaseController _database = new DatabaseController("database.db");
         private string _cinemaName;
         public SelectMovie(string selectedCinema)
         {
