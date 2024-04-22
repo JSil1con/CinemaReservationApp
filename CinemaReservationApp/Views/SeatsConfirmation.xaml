@@ -44,7 +44,6 @@
                 HorizontalAlignment="Center"
                 Click="buttonSeatConfirmation"
                 >
-                
             </Button>
         </StackPanel>
     </Grid>

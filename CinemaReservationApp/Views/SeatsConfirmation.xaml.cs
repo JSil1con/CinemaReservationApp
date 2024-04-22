@@ -58,6 +58,12 @@ namespace CinemaReservationApp.Views
                 _database.UpdateAsync(seat);
             }
 
+            if (selectedOption == 2)
+            {
+                ReservationForm reservationFormWindow = new ReservationForm(_selectedSeatsIds);
+                reservationFormWindow.Show();
+            }
+
             this.Close();
         }
 

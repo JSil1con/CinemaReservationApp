@@ -140,5 +140,22 @@ namespace CinemaReservationApp.Classes.Database
             return seats;
         }
 
+        public async Task InsertReservation(string fullName, string email, int idSeat)
+        {
+            var existingReversation = await _connection.Table<ReservationModel>()
+                .Where(s => s.FullName == fullName)
+                .Where(s => s.Email == email)
+                .Where(s => s.SeatId == idSeat)
+                .FirstOrDefaultAsync();
+
+            if (existingReversation != null)
+            {
+                return;
+            }
+
+            ReservationModel reservation = new ReservationModel() { FullName = fullName, Email = email, SeatId = idSeat };
+
+            _connection.InsertAsync(reservation);
+        }
     }
 }
