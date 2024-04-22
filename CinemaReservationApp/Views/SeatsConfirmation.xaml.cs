@@ -31,6 +31,7 @@ namespace CinemaReservationApp.Views
 
             _selectedSeatsIds = selectedSeats;
 
+            //Get selected seats
             GetSeats();
         }
 
@@ -44,26 +45,32 @@ namespace CinemaReservationApp.Views
         private void buttonSeatConfirmation(object sender, RoutedEventArgs e)
         {
             Dictionary<string, int> selectOptions = new Dictionary<string, int>();
+
+            //Every option
             selectOptions.Add("Free", 1);
             selectOptions.Add("Reservation", 2);
             selectOptions.Add("Sold", 3);
             selectOptions.Add("Unavailable", 4);
 
+            //Selected option
             int selectedOption = selectOptions[_selectedOption];
 
 
             foreach (var seat in _selectedSeats)
             {
+                // Update seat status
                 seat.SeatStatusId = selectedOption;
                 _database.UpdateAsync(seat);
             }
 
             if (selectedOption == 2)
             {
+                // If reservation open reservation form
                 ReservationForm reservationFormWindow = new ReservationForm(_selectedSeatsIds);
                 reservationFormWindow.Show();
             }
 
+            // Closet the window
             this.Close();
         }
 

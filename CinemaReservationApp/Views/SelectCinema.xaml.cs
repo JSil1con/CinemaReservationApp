@@ -26,17 +26,20 @@ namespace CinemaReservationApp.Views
         {
             InitializeComponent();
 
+            // View all cinemas
             ViewCinemasAsync();
         }
 
         private async void ViewCinemasAsync()
         {
+            // Get all cinemas
             List<CinemaModel> cinemas = await _database.GetCinemasAsync();
 
             int row = 0;
 
             foreach (var cinema in cinemas)
             {
+                //Add cinemas to UI
                 MainGrid.RowDefinitions.Add(new RowDefinition());
                 Button cinemaButton = new Button();
                 cinemaButton.Content = cinema.Name;
@@ -54,6 +57,7 @@ namespace CinemaReservationApp.Views
             Button clickedButton = (sender as Button);
             string choosedCinema = (string)clickedButton.Content;
 
+            //Open select movie
             SelectMovie movieSelectWindow = new SelectMovie(choosedCinema);
             movieSelectWindow.Show();
         }

@@ -26,36 +26,40 @@ namespace CinemaReservationApp.Classes
         private int _cinemaId;
         private string _cinemaName;
         private MainWindow _mainWindow;
-        private TaskCompletionSource<Button> _buttonCompletionSource = new TaskCompletionSource<Button>();
 
         public Cinema(int rows, int columns, Grid grid, string cinemaName, MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
             _cinemaName = cinemaName;
 
+            // Get seats and cinema id
             Task.Run(async () =>
             {
                 await InitializeAsync();
             });
 
+            // Create row definitions
             for (int i = 0; i < rows; i++)
             {
                 RowDefinition tempRow = new RowDefinition();
                 grid.RowDefinitions.Add(tempRow);
             }
 
+            // Create column definitions
             for (int i = 0; i < columns; i++)
             {
                 ColumnDefinition tempColumn = new ColumnDefinition();
                 grid.ColumnDefinitions.Add(tempColumn);
             }
 
+            // Add confirm button
             grid.RowDefinitions.Add(new RowDefinition());
             Button confirmButton = new Button();
-            confirmButton.Content = "Confirm selection";
+            confirmButton.Content = "Confirm";
             confirmButton.Click += ConfirmSeats;
             Grid.SetRow(confirmButton, rows);
 
+            // Set column span
             if (columns % 2 == 0)
             {
                 Grid.SetColumn(confirmButton, columns / 2 - 1);
@@ -68,7 +72,6 @@ namespace CinemaReservationApp.Classes
 
             grid.Children.Add(confirmButton);
 
-
             Thread.Sleep(100);
 
             CountOfSeats = rows * columns;
@@ -78,10 +81,15 @@ namespace CinemaReservationApp.Classes
 
             for (int row = 1; row < rows + 1; row++)
             {
+                // Row
                 for (int column = 1; column < columns + 1; column++)
                 {
+                    // Column
+
+                    //Create button
                     Button button = new Button();
                     button.Content = counterId + 1;
+
                     if (_seats[counterDictionary].SeatStatusId == 1)
                     {
                         // Free

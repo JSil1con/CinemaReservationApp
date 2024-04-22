@@ -26,17 +26,20 @@ namespace CinemaReservationApp.Views
         public SelectMovie(string selectedCinema)
         {
             InitializeComponent();
-            ViewMovies(selectedCinema);
 
             _cinemaName = selectedCinema;
+
+            //View movies
+            ViewMovies(selectedCinema);
         }
 
         private async void ViewMovies(string selectedCinema)
         {
+            // Gett all movies in the cinema
             List<MovieModel> movies = await _database.GetMoviesByCinemaName(selectedCinema);
 
+            // Display it
             MainListView.ItemsSource = movies;
-
             MainListView.MouseDoubleClick += SelectedMovieClicked;
         }
 
@@ -44,17 +47,14 @@ namespace CinemaReservationApp.Views
         {
             MovieModel selectedMovie = (sender as ListView).SelectedItem as MovieModel;
 
-            // Ověření, zda byl vybrán film
             if (selectedMovie != null)
             {
+                //Film was selected
+
+                //Display seats
                 MainWindow mainwindow = new MainWindow(selectedMovie.Name, _cinemaName);
                 mainwindow.Show();
             }
-        }
-
-        private void MainListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

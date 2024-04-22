@@ -29,15 +29,19 @@ namespace CinemaReservationApp.Views
         {
             InitializeComponent();
 
+            //Display seats
             ViewSeats(selectedMovie, selectedCinema);
         }
 
         private async void ViewSeats(string selectedMovie, string selectedCinema)
         {
+            //Get current cinema Id
             int cinemaId = await _database.GetCinemaIdByName(selectedCinema);
 
+            //Get current cinema from database
             CinemaModel cinemaModel = await _database.GetCinemaById(cinemaId);
 
+            //Creats UI - seats
             Cinema cinema = new Cinema(cinemaModel.Rows, cinemaModel.Columns, MainGrid, selectedCinema, this);
         }
     }

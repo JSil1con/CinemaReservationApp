@@ -36,11 +36,13 @@ namespace CinemaReservationApp.Views
             string fullName = fullNameTextBox.Text;
             string email = emailTextBox.Text;
 
+            //Fullname validation
             if (fullName == "")
             {
                 return;
             }
 
+            //Mail validation
             try
             {
                 MailAddress mailAdress = new MailAddress(email);
@@ -50,11 +52,13 @@ namespace CinemaReservationApp.Views
                 return;
             }
 
+            //Save each seat status
             foreach (var idSeat in _idsSeats)
             {
                 _database.InsertReservation(fullName, email, idSeat);
             }
 
+            //Close the window
             this.Close();
         }
     }
