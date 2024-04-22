@@ -56,5 +56,10 @@ namespace CinemaReservationApp.Views
                 mainwindow.Show();
             }
         }
+
+        private void MainListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
