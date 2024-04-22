@@ -38,7 +38,7 @@ namespace CinemaReservationApp.Views
 
             CinemaModel cinemaModel = await _database.GetCinemaById(cinemaId);
 
-            Cinema cinema = new Cinema(cinemaModel.Rows, cinemaModel.Columns, MainGrid, selectedCinema);
+            Cinema cinema = new Cinema(cinemaModel.Rows, cinemaModel.Columns, MainGrid, selectedCinema, this);
         }
     }
 }

@@ -18,16 +18,19 @@ namespace CinemaReservationApp.Classes
 {
     internal class Cinema
     {
-        private List<SeatModel> _seats = new List<SeatModel>();
+        private Dictionary<int, SeatModel> _seats = new Dictionary<int, SeatModel>();
         private List<int> _selectedSeats = new List<int>();
+        private Dictionary<int, Button> _buttons = new Dictionary<int, Button>();
         public int CountOfSeats { get; }
         private DatabaseController _database = new DatabaseController("database.db");
         private int _cinemaId;
         private string _cinemaName;
+        private MainWindow _mainWindow;
         private TaskCompletionSource<Button> _buttonCompletionSource = new TaskCompletionSource<Button>();
 
-        public Cinema(int rows, int columns, Grid grid, string cinemaName)
+        public Cinema(int rows, int columns, Grid grid, string cinemaName, MainWindow mainWindow)
         {
+            _mainWindow = mainWindow;
             _cinemaName = cinemaName;
 
             Task.Run(async () =>
@@ -66,29 +69,30 @@ namespace CinemaReservationApp.Classes
             grid.Children.Add(confirmButton);
 
 
+            Thread.Sleep(100);
+
             CountOfSeats = rows * columns;
 
-            int counter = 0;
-
-            Thread.Sleep(500);
+            int counterId = 0;
+            int counterDictionary = 0;
 
             for (int row = 1; row < rows + 1; row++)
             {
                 for (int column = 1; column < columns + 1; column++)
                 {
                     Button button = new Button();
-                    button.Content = counter + 1;
-                    if (_seats[counter].SeatStatusId == 1)
+                    button.Content = counterId + 1;
+                    if (_seats[counterDictionary].SeatStatusId == 1)
                     {
                         // Free
                         button.Background = Brushes.Green;
                     }
-                    else if (_seats[counter].SeatStatusId == 2)
+                    else if (_seats[counterDictionary].SeatStatusId == 2)
                     {
                         // Reservation
-                        button.Background = Brushes.Blue;
+                        button.Background = Brushes.Aqua;
                     }
-                    else if (_seats[counter].SeatStatusId == 3 || _seats[counter].SeatStatusId == 4)
+                    else if (_seats[counterDictionary].SeatStatusId == 3 || _seats[counterDictionary].SeatStatusId == 4)
                     {
                         // Sold or Unavailable
                         button.Background = Brushes.Red;
@@ -96,8 +100,10 @@ namespace CinemaReservationApp.Classes
                     button.Click += SeatClicked;
                     Grid.SetRow(button, row - 1);
                     Grid.SetColumn(button, column - 1);
+                    _buttons.Add(counterDictionary, button);
                     grid.Children.Add(button);
-                    counter++;
+                    counterId++;
+                    counterDictionary += 2;
                 }
             }
 
@@ -111,29 +117,31 @@ namespace CinemaReservationApp.Classes
 
         private void ConfirmSeats(object sender, RoutedEventArgs e)
         {
-            SeatsConfirmation seatConfirmationWindow = new SeatsConfirmation();
+            SeatsConfirmation seatConfirmationWindow = new SeatsConfirmation(_selectedSeats);
             seatConfirmationWindow.Show();
+
+            _mainWindow.Close();
         }
 
         private void SeatClicked(object sender, RoutedEventArgs e)
         {
             Button clickedButton = (e.Source as Button);
-            int idSeat = Int32.Parse(clickedButton.Content.ToString());
+            int numberSeat = (Int32.Parse(clickedButton.Content.ToString()) - 1) * 2;
+
+            int idSeat = _seats[numberSeat].Id;
+
             if (!_selectedSeats.Contains(idSeat))
             {
-                clickedButton.Background = Brushes.LightGreen;
+                //Selected
+                _buttons[numberSeat].Background = Brushes.Blue;
                 _selectedSeats.Add(idSeat);
             }
             else
             {
-                clickedButton.Background = Brushes.Red;
+                //Not selected
+                _buttons[numberSeat].Background = Brushes.Green;
                 _selectedSeats.Remove(idSeat);
             }
-        }
-
-        private async void GetSeats()
-        {
-            _seats = await _database.GetSeatsAsync(_cinemaId);
         }
     }
 }

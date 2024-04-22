@@ -30,13 +30,23 @@ namespace CinemaReservationApp.Classes.Database
             return false;
         }
 
-        public async Task<List<SeatModel>> GetSeatsAsync(int cinemaId)
+        public async Task<Dictionary<int, SeatModel>> GetSeatsAsync(int cinemaId)
         {
-            var seats = await _connection.Table<SeatModel>()
+            var seatsList = await _connection.Table<SeatModel>()
                 .Where(s => s.CinemaId == cinemaId)
                 .ToListAsync();
 
-            return seats;
+            Dictionary<int, SeatModel> seatsDict = new Dictionary<int, SeatModel>();
+
+            int counter = 0;
+            foreach (var seat in seatsList)
+            {
+                seatsDict.Add(counter++, seat);
+
+                counter += 1;
+            }
+
+            return seatsDict;
         }
 
         public async Task<List<MovieModel>> GetMoviesAsync(int cinemaId)
@@ -95,6 +105,15 @@ namespace CinemaReservationApp.Classes.Database
             return cinema;
         }
 
+        public async Task<SeatModel> GetSeatById(int seatId)
+        {
+            var seat = await _connection.Table<SeatModel>()
+                .Where(s => s.Id == seatId)
+                .FirstOrDefaultAsync();
+
+            return seat;
+        }
+
         public async Task<SeatModel> GetSeatByPosition(int row, int column, int cinemaId)
         {
             var seat = await _connection.Table<SeatModel>()
@@ -104,6 +123,21 @@ namespace CinemaReservationApp.Classes.Database
                 .FirstOrDefaultAsync();
 
             return seat;
+        }
+
+
+        public async Task<List<SeatModel>> GetSeatsByIds(List<int> seatsIds)
+        {
+            List<SeatModel> seats = new List<SeatModel>();
+            foreach (var idSeat in seatsIds)
+            {
+                SeatModel seat = await _connection.Table<SeatModel>()
+                    .Where(s => s.Id == idSeat)
+                    .FirstOrDefaultAsync();
+                seats.Add(seat);
+            }
+
+            return seats;
         }
 
     }

@@ -22,7 +22,7 @@ namespace CinemaReservationApp.Classes.Database.Models
         public int Columns { get; set; }
 
         [Ignore]
-        public List<SeatModel> Seats { get; set; } = new List<SeatModel>();
+        public Dictionary<int, SeatModel> Seats { get; set; } = new Dictionary<int, SeatModel>();
 
         [Ignore]
         public List<MovieModel> Movies { get; set; } = new List<MovieModel>();
