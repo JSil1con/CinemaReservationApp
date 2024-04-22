@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:CinemaReservationApp.Views"
         mc:Ignorable="d"
         Title="SeatsConfirmation" Height="450" Width="800"
+        MinHeight="225" MinWidth="400"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>

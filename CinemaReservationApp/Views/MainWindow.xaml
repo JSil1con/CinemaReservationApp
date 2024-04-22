@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:CinemaReservationApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
+        MinHeight="225" MinWidth="400"
         WindowStartupLocation="CenterScreen">
     <Grid x:Name="MainGrid" 
           ShowGridLines="False">
